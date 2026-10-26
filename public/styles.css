@@ -1,0 +1,116 @@
+/* ==========================================================================
+   styles.css — Estilos de la interfaz
+   Los colores se definen como variables (custom properties) para poder
+   cambiarlos en un solo lugar.
+   ========================================================================== */
+:root {
+  --fondo:      #f4f6fa;
+  --panel:      #ffffff;
+  --texto:      #1f2937;
+  --suave:      #6b7280;
+  --borde:      #e5e7eb;
+  --primario:   #2563eb;
+  --primario-2: #1d4ed8;
+  --ok:         #15803d;
+  --mal:        #b91c1c;
+  --radio:      10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fondo);
+  color: var(--texto);
+}
+
+/* ---------- Encabezado ---------- */
+.encabezado {
+  background: linear-gradient(120deg, #1e3a8a, var(--primario));
+  color: #fff;
+  padding: 24px 32px;
+}
+.encabezado h1 { margin: 0; font-size: 1.6rem; }
+.subtitulo     { margin: 4px 0 0; opacity: .85; font-size: .95rem; }
+
+.contenedor { max-width: 1150px; margin: 0 auto; padding: 24px 16px; }
+
+/* ---------- Tarjetas de estadísticas ---------- */
+.estadisticas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.tarjeta {
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 16px;
+  display: flex; flex-direction: column; gap: 4px;
+}
+.etiqueta { color: var(--suave); font-size: .85rem; }
+.valor    { font-size: 1.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.ok  { color: var(--ok); }
+.mal { color: var(--mal); }
+
+/* ---------- Paneles ---------- */
+.columnas { display: grid; grid-template-columns: 320px 1fr; gap: 24px; align-items: start; }
+@media (max-width: 800px) { .columnas { grid-template-columns: 1fr; } }
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 20px;
+  min-width: 0;
+}
+.panel h2 { margin: 0 0 16px; font-size: 1.15rem; }
+
+/* ---------- Formulario ---------- */
+form label { display: block; font-size: .85rem; color: var(--suave); margin-bottom: 12px; }
+form input, .barra input {
+  display: block; width: 100%;
+  margin-top: 4px; padding: 9px 11px;
+  border: 1px solid var(--borde); border-radius: 8px;
+  font: inherit; color: var(--texto);
+}
+form input:focus, .barra input:focus { outline: 2px solid var(--primario); border-color: transparent; }
+.fila { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.botones { display: flex; gap: 8px; margin-top: 8px; }
+
+button {
+  font: inherit; cursor: pointer;
+  padding: 8px 14px; border-radius: 8px;
+  border: 1px solid var(--borde); background: #fff; color: var(--texto);
+}
+button:hover          { background: #f3f4f6; }
+button.primario       { background: var(--primario); border-color: var(--primario); color: #fff; }
+button.primario:hover { background: var(--primario-2); }
+button.peligro        { color: var(--mal); }
+button.chico          { padding: 4px 10px; font-size: .85rem; }
+
+/* ---------- Tabla ---------- */
+.barra { display: flex; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 12px; flex-wrap: wrap; }
+.barra h2 { margin: 0; }
+.barra input { width: 280px; max-width: 100%; margin: 0; }
+
+.tabla-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+th, td { padding: 10px 8px; text-align: left; border-bottom: 1px solid var(--borde); white-space: nowrap; }
+th { color: var(--suave); font-weight: 600; font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+tbody tr:hover { background: #f9fafb; }
+td .acciones { display: flex; gap: 6px; }
+
+.vacio { color: var(--suave); text-align: center; padding: 24px 0; }
+
+/* ---------- Aviso emergente ---------- */
+.aviso {
+  position: fixed; bottom: 20px; right: 20px;
+  background: var(--texto); color: #fff;
+  padding: 12px 18px; border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,.2);
+}
+.aviso.error { background: var(--mal); }

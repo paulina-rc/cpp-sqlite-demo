@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!--
+  index.html
+  ---------------------------------------------------------------------------
+  Interfaz (FRONTEND) de la aplicación. El servidor C++ entrega este archivo
+  tal cual. Toda la interacción con la base de datos ocurre en app.js, que
+  hace peticiones fetch() a la API REST en /api/...
+-->
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registro de Estudiantes</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div>
+      <h1>Registro de Estudiantes</h1>
+      <p class="subtitulo">Demo: HTML + JavaScript &rarr; API REST en C++ &rarr; SQLite</p>
+    </div>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- Tarjetas con estadísticas (GET /api/estadisticas) -->
+    <section class="estadisticas" id="estadisticas">
+      <div class="tarjeta"><span class="etiqueta">Total</span>     <span class="valor" id="st-total">–</span></div>
+      <div class="tarjeta"><span class="etiqueta">Promedio</span>  <span class="valor" id="st-promedio">–</span></div>
+      <div class="tarjeta"><span class="etiqueta">Aprobados</span> <span class="valor ok"  id="st-aprobados">–</span></div>
+      <div class="tarjeta"><span class="etiqueta">Reprobados</span><span class="valor mal" id="st-reprobados">–</span></div>
+    </section>
+
+    <div class="columnas">
+      <!-- Formulario para crear / editar (POST y PUT) -->
+      <section class="panel">
+        <h2 id="titulo-form">Nuevo estudiante</h2>
+        <form id="formulario" autocomplete="off">
+          <input type="hidden" id="id">
+
+          <label>Nombre
+            <input id="nombre" required maxlength="50">
+          </label>
+          <label>Apellidos
+            <input id="apellido" required maxlength="80">
+          </label>
+          <div class="fila">
+            <label>Sección
+              <input id="seccion" required maxlength="10" placeholder="11-1">
+            </label>
+            <label>Nota
+              <input id="nota" type="number" min="0" max="100" step="0.1" required>
+            </label>
+          </div>
+
+          <div class="botones">
+            <button type="submit" class="primario" id="btn-guardar">Guardar</button>
+            <button type="button" id="btn-cancelar" hidden>Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Tabla con los registros (GET /api/estudiantes) -->
+      <section class="panel ancho">
+        <div class="barra">
+          <h2>Estudiantes</h2>
+          <input type="search" id="buscar" placeholder="Buscar por nombre, apellido o sección…">
+        </div>
+        <div class="tabla-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th><th>Nombre</th><th>Apellidos</th><th>Sección</th>
+                <th class="num">Nota</th><th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla"></tbody>
+          </table>
+        </div>
+        <p class="vacio" id="vacio" hidden>No hay estudiantes que mostrar.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Mensajes emergentes -->
+  <div id="aviso" class="aviso" hidden></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
